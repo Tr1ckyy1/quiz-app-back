@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,7 +19,30 @@ class AppServiceProvider extends ServiceProvider
 	/**
 	 * Bootstrap any application services.
 	 */
-	public function boot(): void
+	public function boot()
 	{
+		VerifyEmail::toMailUsing(function ($notifiable, $url) {
+			$expiration = now()->addMinutes(config('auth.verification.expire'));
+			$signedUrl = URL::temporarySignedRoute(
+				'verification.verify',
+				$expiration,
+				['id' => $notifiable->getKey(), 'hash' => sha1($notifiable->getEmailForVerification())]
+			);
+
+			$urlParts = parse_url($signedUrl);
+			$query = isset($urlParts['query']) ? $urlParts['query'] : '';
+			parse_str($query, $queryParams);
+			$expires = $queryParams['expires'] ?? null;
+			$signature = $queryParams['signature'] ?? null;
+
+			$frontendUrl = config('app.frontend_url') . '/auth/login' . '?' . http_build_query([
+				'id'        => $notifiable->getKey(),
+				'hash'      => sha1($notifiable->getEmailForVerification()),
+				'expires'   => $expires,
+				'signature' => $signature,
+			]);
+
+			return (new MailMessage)->view('auth.verify-email', ['url' => $frontendUrl, 'user' => $notifiable->username])->subject('Please verify your email')->from('no-reply@quizwiz.com');
+		});
 	}
 }
