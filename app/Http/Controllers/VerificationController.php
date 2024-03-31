@@ -17,7 +17,8 @@ class VerificationController extends Controller
 		}
 
 		if ($user->hasVerifiedEmail()) {
-			return response()->json(['type' => 'warning', 'text' => 'Already verified!', 'message' => 'Your account has already been verified!!', 'duration' => 4000]);
+			return response()->json([
+				'type' => 'warning', 'text' => 'Already verified!', 'message' => 'Your account has already been verified!!', 'duration' => 4000]);
 		} else {
 			$user->markEmailAsVerified();
 			return response()->json(['type' => 'success', 'text' => 'Verified Successfully', 'message' => 'Your account has been verified successfully!', 'duration' => 3000]);
@@ -28,11 +29,15 @@ class VerificationController extends Controller
 	{
 		$id = $request->input('id');
 		$expires = $request->input('expires');
+		$hash = $request->input('hash');
 
 		$user = User::find($id);
 
 		if (!$user) {
 			return response()->json(['message' => 'User not found'], 404);
+		}
+		if (!hash_equals($hash, sha1($user->getEmailForVerification()))) {
+			return response()->json(['message' => 'Invalid verification link'], 404);
 		}
 
 		if (Carbon::now()->gte(Carbon::createFromTimestamp($expires)) && !$user->hasVerifiedEmail()) {
