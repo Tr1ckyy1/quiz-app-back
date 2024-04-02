@@ -12,6 +12,7 @@ class VerificationController extends Controller
 	public function verify(Request $request, $id, $hash)
 	{
 		$user = User::findOrFail($id);
+
 		if (!hash_equals($hash, sha1($user->getEmailForVerification()))) {
 			return response()->json(['message' => 'Invalid verification link or user not found.'], 404);
 		}
@@ -36,6 +37,7 @@ class VerificationController extends Controller
 		if (!$user) {
 			return response()->json(['message' => 'User not found'], 404);
 		}
+
 		if (!hash_equals($hash, sha1($user->getEmailForVerification()))) {
 			return response()->json(['message' => 'Invalid verification link'], 404);
 		}
@@ -48,6 +50,7 @@ class VerificationController extends Controller
 		if ($user->hasVerifiedEmail()) {
 			return response()->json(['type' => 'warning', 'text' => 'Already verified!', 'message' => 'Email already verified', 'duration' => 4000]);
 		}
+
 		$validSignature = URL::hasValidSignature($request);
 		if (!$validSignature) {
 			return response()->json(['message' => 'Invalid signature'], 422);
