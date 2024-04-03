@@ -19,10 +19,10 @@ class VerificationController extends Controller
 
 		if ($user->hasVerifiedEmail()) {
 			return response()->json([
-				'type' => 'warning', 'text' => 'Already verified!', 'message' => 'Your account has already been verified!!', 'duration' => 4000]);
+				'type' => 'warning', 'text' => 'Already verified!', 'message' => 'Your account has already been verified!', 'duration' => 4000], 201);
 		} else {
 			$user->markEmailAsVerified();
-			return response()->json(['type' => 'success', 'text' => 'Verified Successfully', 'message' => 'Your account has been verified successfully!', 'duration' => 3000]);
+			return response()->json(['type' => 'success', 'text' => 'Verified Successfully', 'message' => 'Your account has been verified successfully!', 'duration' => 3000], 200);
 		}
 	}
 

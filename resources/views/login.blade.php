@@ -35,7 +35,7 @@
         <label for="remember">
             Remember for 30 days
         </label>
-        <input type='checkbox' placeholder="Confirm password" id="remember" name="remember"/>
+        <input type='checkbox' placeholder="Confirm password" id="remember" name="remember_token"/>
         @error('remember')
             <p>{{$message}}</p>
         @enderror

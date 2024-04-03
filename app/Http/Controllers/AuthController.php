@@ -10,32 +10,35 @@ use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
-	/**
-	 * Display a listing of the resource.
-	 */
 	public function signup(StoreSignupRequest $request): JsonResponse
 	{
 		$user = User::create($request->validated());
 		event(new Registered($user));
-		return response()->json('Please check your email for verification');
+		return response()->json(['type' => 'success', 'text' => 'Created Successfully!', 'message' => 'Please check your email address for verification']);
 	}
 
 	public function login(StoreLoginRequest $request)
 	{
 		$credentials = $request->validated();
 
-		if (!auth()->attempt($credentials)) {
-			return response()->json(['message' => 'The provided credentials do not match our records.'], 401);
+		if (!auth()->attemptWhen(
+			[
+				'email'          => $credentials['email'],
+				'password'       => $credentials['password'],
+			],
+			function (User $user) {
+				return $user->hasVerifiedEmail();
+			},
+			$credentials['remember_token'] ?? null
+		)) {
+			return response()->json(['message' => 'The provided credentials do not match our records, or the user is not verified.'], 403);
 		}
 
 		session()->regenerate();
-
-		return response()->json(['message' => 'logged']);
 	}
 
 	public function logout()
 	{
-		return response()->json(['message' => 'blabla']);
-		// auth()->logout();
+		auth('web')->logout();
 	}
 }

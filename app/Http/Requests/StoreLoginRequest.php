@@ -15,9 +15,9 @@ class StoreLoginRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'email'    => ['required', 'email', Rule::exists('users', 'email')],
-			'password' => ['required'],
-			'remember' => '',
+			'email'          => ['required', 'email', Rule::exists('users', 'email')],
+			'password'       => ['required'],
+			'remember_token' => '',
 		];
 	}
 }
