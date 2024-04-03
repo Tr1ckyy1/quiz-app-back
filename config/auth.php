@@ -99,7 +99,7 @@ return [
 	],
 
 	'verification' => [
-		'expire' => 1,
+		'expire' => 120,
 	],
 
 	/*

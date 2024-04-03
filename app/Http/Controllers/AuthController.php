@@ -2,29 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreAuthRequest;
+use App\Http\Requests\StoreLoginRequest;
+use App\Http\Requests\StoreSignupRequest;
 use App\Models\User;
-use App\Notifications\VerifyEmailNotification;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
-	/**
-	 * Display a listing of the resource.
-	 */
-	public function signup(StoreAuthRequest $request)
+	public function signup(StoreSignupRequest $request): JsonResponse
 	{
 		$user = User::create($request->validated());
-		// $user->sendEmailVerificationNotification();
 		event(new Registered($user));
-		// $user->notify(new VerifyEmailNotification($user));
-		// $user->notify(new VerifyEmailNotification);
+		return response()->json(['type' => 'success', 'text' => 'Created Successfully!', 'message' => 'Please check your email address for verification']);
+	}
 
-		auth()->login($user);
+	public function login(StoreLoginRequest $request)
+	{
+		$credentials = $request->validated();
 
-		// session()->regenerate();
+		if (!auth()->attemptWhen(
+			[
+				'email'          => $credentials['email'],
+				'password'       => $credentials['password'],
+			],
+			function (User $user) {
+				return $user->hasVerifiedEmail();
+			},
+			$credentials['remember_token'] ?? null
+		)) {
+			return response()->json(['message' => 'The provided credentials do not match our records, or the user is not verified.'], 403);
+		}
 
-		// return redirect('/');
-		return response()->json('Please check your email for verification');
+		session()->regenerate();
+	}
+
+	public function logout()
+	{
+		auth('web')->logout();
 	}
 }
