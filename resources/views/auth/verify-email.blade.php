@@ -14,11 +14,11 @@
             <div class='img-container'>
                 <img src="{{asset('images/quizwiz-email-logo.png')}}"/>
             </div>
-            <h1>Verify your email address to get started</h1>
+            <h1>{{$headerText}}</h1>
         </div>
         <p>Hi {{$user}},</p>
-        <p>You're almost there! To complete your sign up, please verify your email address.</p>
-        <a href="{{$url}}">Verify now</a>
+        <p>{{$text}}</p>
+        <a href="{{$url}}">{{$buttonText}}</a>
     </div>
 </body>
 </html>
