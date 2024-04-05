@@ -12,7 +12,7 @@ Route::get('/user', function (Request $request) {
 Route::controller(AuthController::class)->group(function () {
 	Route::post('signup', 'signup')->name('signup');
 	Route::post('login', 'login')->name('login');
-	Route::post('logout', 'logout')->middleware('auth:sanctum')->name('logout');
+	Route::post('logout', 'logout')->middleware('auth')->name('logout');
 	Route::post('forgot-password', 'forgotPassword')->name('forgot_password');
 	Route::post('reset-password', 'resetPassword')->name('reset_password');
 });

@@ -44,8 +44,9 @@ class AuthController extends Controller
 
 	public function logout()
 	{
-		auth('web')->logout();
+		auth()->logout();
 		request()->session()->invalidate();
+		request()->session()->regenerateToken();
 	}
 
 	public function forgotPassword()
