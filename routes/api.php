@@ -10,11 +10,11 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::controller(AuthController::class)->group(function () {
-	Route::post('signup', 'signup')->name('signup');
-	Route::post('login', 'login')->name('login');
-	Route::post('logout', 'logout')->middleware('auth')->name('logout');
-	Route::post('forgot-password', 'forgotPassword')->name('forgot_password');
-	Route::post('reset-password', 'resetPassword')->name('reset_password');
+	Route::post('signup', 'signup')->middleware('guest')->name('signup');
+	Route::post('login', 'login')->middleware('guest')->name('login');
+	Route::post('logout', 'logout')->middleware('auth:sanctum')->name('logout');
+	Route::post('forgot-password', 'forgotPassword')->middleware('guest')->name('forgot_password');
+	Route::post('reset-password', 'resetPassword')->middleware('guest')->name('reset_password');
 });
 
 Route::controller(VerificationController::class)->group(function () {
