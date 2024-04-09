@@ -48,4 +48,9 @@ class User extends Authenticatable implements MustVerifyEmail
 	{
 		$this->notify(new ResetPasswordNotification(config('app.frontend_url') . '/auth/reset?token=' . $token . '&email=' . $this->email));
 	}
+
+	public function quizzes()
+	{
+		return $this->belongsToMany(Quiz::class);
+	}
 }

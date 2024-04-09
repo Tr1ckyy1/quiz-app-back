@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -44,5 +45,7 @@ class AppServiceProvider extends ServiceProvider
 
 			return (new MailMessage)->view('auth.verify-email', ['url' => $frontendUrl, 'user' => $notifiable->username, 'headerText' => 'Verify your email address to get started', 'text' => "You're almost there! To complete your sign up, please verify your email address.", 'buttonText' => 'Verify now'])->subject('Please verify your email')->from('no-reply@quizwiz.com');
 		});
+
+		Model::preventLazyLoading();
 	}
 }
