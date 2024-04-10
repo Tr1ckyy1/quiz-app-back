@@ -11,6 +11,6 @@ class QuizController extends Controller
 	{
 		$quizzes = Quiz::with('categories', 'difficultyLevel');
 
-		return new QuizCollection($quizzes->filter(request(['categories', 'levels', 'sort']))->get());
+		return new QuizCollection($quizzes->filter(request(['categories', 'levels', 'sort', 'search']))->get());
 	}
 }

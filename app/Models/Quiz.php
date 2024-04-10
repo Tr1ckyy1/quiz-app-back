@@ -29,22 +29,6 @@ class Quiz extends Model
 		return $this->belongsToMany(User::class);
 	}
 
-	// public function scopeFilter($query, array $filters)
-	// {
-	// 	$query->when($filters['categories'] ?? false, function ($query, $categories) {
-	// 		$categories = explode('&', $categories); // Split categories if they are concatenated with '%26'
-	// 		return $query->whereHas('categories', function ($query) use ($categories) {
-	// 			$query->whereIn('name', $categories);
-	// 		});
-	// 	});
-
-	// 	$query->when($filters['levels'] ?? false, function ($query, $difficultyLevels) {
-	// 		$difficultyLevels = explode('&', $difficultyLevels);
-	// 		$query->whereHas('difficultyLevel', function ($query) use ($difficultyLevels) {
-	// 			$query->whereIn('name', $difficultyLevels);
-	// 		});
-	// 	});
-	// }
 	public function scopeFilter($query, array $filters)
 	{
 		$query->when($filters['categories'] ?? false, function ($query, $categories) {
@@ -59,6 +43,10 @@ class Quiz extends Model
 			$query->whereHas('difficultyLevel', function ($query) use ($difficultyLevels) {
 				$query->whereIn('name', $difficultyLevels);
 			});
+		});
+
+		$query->when($filters['search'] ?? false, function ($query, $search) {
+			$query->where('title', 'like', '%' . $search . '%');
 		});
 
 		$sort = $filters['sort'] ?? 'Newest'; // Default Newest if no parameter for sort
