@@ -13,10 +13,6 @@ class VerificationController extends Controller
 	{
 		$user = User::findOrFail($id);
 
-		if (!hash_equals($hash, sha1($user->getEmailForVerification()))) {
-			return response()->json(['message' => 'Invalid verification link or user not found.'], 404);
-		}
-
 		if ($user->hasVerifiedEmail()) {
 			return response()->json([
 				'type' => 'warning', 'text' => 'Already verified!', 'message' => 'Your account has already been verified!', 'duration' => 4000], 201);
