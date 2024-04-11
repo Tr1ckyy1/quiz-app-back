@@ -29,9 +29,9 @@ class Quiz extends Model
 		return $this->belongsToMany(User::class);
 	}
 
-	public function scopeSimilarQuizzes($query, $categoryIds)
+	public function scopeSimilarQuizzes($query, $categoryIds, $excludeId)
 	{
-		return $query->whereNot('id', $this->id)->whereHas('categories', function ($query) use ($categoryIds) {
+		return $query->whereNot('id', $excludeId)->whereHas('categories', function ($query) use ($categoryIds) {
 			$query->whereIn('categories.id', $categoryIds);
 		});
 	}

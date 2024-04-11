@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\QuizIndexResource;
 use App\Http\Resources\QuizShowResource;
 use App\Models\Quiz;
+use Illuminate\Http\Request;
 
 class QuizController extends Controller
 {
@@ -19,12 +20,8 @@ class QuizController extends Controller
 		return new QuizShowResource($quiz->load('categories', 'questions'));
 	}
 
-	public function similarQuizzes(Quiz $quiz)
+	public function similarQuizzes(Request $request)
 	{
-		$categoryIds = $quiz->categories->pluck('id');
-
-		return QuizIndexResource::collection(
-			$quiz->similarQuizzes($categoryIds)->with('categories', 'difficultyLevel')->take(3)->get()
-		);
+		return QuizIndexResource::collection(Quiz::similarQuizzes($request->categoryIds, $request->excludeId)->with('categories', 'difficultyLevel')->take(3)->get());
 	}
 }
