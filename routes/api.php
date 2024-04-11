@@ -14,6 +14,8 @@ Route::get('/user', function (Request $request) {
 
 Route::controller(QuizController::class)->group(function () {
 	Route::get('/quizzes', 'index')->name('quizzes');
+	Route::get('/quizzes/{quiz}', 'show')->name('quizzes');
+	Route::get('/quizzes/{quiz}/similar', 'similarQuizzes')->name('similar_quizzes');
 });
 
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories');

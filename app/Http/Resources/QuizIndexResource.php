@@ -15,12 +15,12 @@ class QuizIndexResource extends JsonResource
 	public function toArray(Request $request): array
 	{
 		return [
-			'id'               => $this->id,
-			'title'            => $this->title,
-			'image'            => $this->image,
-			'duration'         => $this->duration,
-			'categories'       => $this->categories,
-			'difficulty_level' => $this->difficultyLevel,
+			'id'                      => $this->id,
+			'title'                   => $this->title,
+			'image'                   => $this->image,
+			'duration'                => $this->duration,
+			'categories'              => CategoryResource::collection($this->categories),
+			'difficulty_level'        => $this->difficultyLevel,
 		];
 	}
 }

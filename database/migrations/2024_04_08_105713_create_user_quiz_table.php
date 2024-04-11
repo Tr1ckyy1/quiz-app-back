@@ -15,7 +15,7 @@ return new class extends Migration {
 			$table->foreignId('user_id')->nullable();
 			$table->foreignId('quiz_id')->constrained()->cascadeOnDelete();
 			$table->integer('duration');
-			$table->integer('correct_answers');
+			$table->integer('points');
 			$table->timestamps();
 		});
 	}
