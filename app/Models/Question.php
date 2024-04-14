@@ -9,6 +9,8 @@ class Question extends Model
 {
 	use HasFactory;
 
+	protected $with = ['answers'];
+
 	public function quiz()
 	{
 		return $this->belongsTo(Quiz::class);

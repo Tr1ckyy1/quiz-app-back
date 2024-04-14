@@ -51,12 +51,8 @@ class Quiz extends Resource
 			Text::make('Intro Question'),
 			Text::make('Instructions'),
 			Number::make('Duration'),
-			BelongsTo::make('Difficulty Level', 'difficultyLevel', DifficultyLevel::class)
-			->searchable()
-			->sortable(),
-			BelongsToMany::make('Categories', 'categories', Category::class)
-			->searchable()
-			->sortable(),
+			BelongsTo::make('Difficulty Level', 'difficultyLevel', DifficultyLevel::class),
+			BelongsToMany::make('Categories', 'categories', Category::class),
 		];
 	}
 

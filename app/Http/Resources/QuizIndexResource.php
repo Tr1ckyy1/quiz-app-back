@@ -14,13 +14,21 @@ class QuizIndexResource extends JsonResource
 	 */
 	public function toArray(Request $request): array
 	{
-		return [
-			'id'                      => $this->id,
-			'title'                   => $this->title,
-			'image'                   => $this->image,
-			'duration'                => $this->duration,
-			'categories'              => CategoryResource::collection($this->categories),
-			'difficulty_level'        => $this->difficultyLevel,
+		$data = [
+			'id'                                                          => $this->id,
+			'title'                                                       => $this->title,
+			'image'                                                       => $this->image,
+			'categories'                                                  => CategoryResource::collection($this->categories),
+			'difficulty_level'                                            => $this->difficultyLevel,
+			'total_users'                                                 => $this->totalUsers(),
 		];
+		if (auth()->check()) {
+			$data['total_points'] = $this->questions->sum('points');
+			$data['user_completed'] = $this->hasCompletedQuiz();
+			$data['user_time'] = $this->quizTotalTime();
+			$data['user_points'] = $this->quizTotalPoints();
+			$data['quiz_completed_at'] = $this->quizCompletedAt();
+		}
+		return $data;
 	}
 }

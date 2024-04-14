@@ -16,6 +16,7 @@ Route::controller(QuizController::class)->group(function () {
 	Route::get('/quizzes', 'index')->name('quizzes');
 	Route::get('/quizzes/{quiz}', 'show')->name('quizzes');
 	Route::get('/similar-quizzes', 'similarQuizzes')->name('similar_quizzes');
+	Route::post('/submit-quiz', 'store')->name('complete_quiz');
 });
 
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories');

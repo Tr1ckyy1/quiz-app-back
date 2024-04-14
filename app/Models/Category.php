@@ -15,7 +15,7 @@ class Category extends Model
 
 		static::deleting(function ($category) {
 			$category->quizzes()->whereDoesntHave('categories', function ($query) use ($category) {
-				$query->where('categories.id', '<>', $category->id);
+				$query->whereNot('categories.id', $category->id);
 			})->delete();
 		});
 	}
