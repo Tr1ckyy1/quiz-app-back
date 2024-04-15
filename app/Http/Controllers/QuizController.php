@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\CompleteQuizAction;
 use App\Http\Resources\QuizIndexResource;
 use App\Http\Resources\QuizShowResource;
 use App\Models\Quiz;
@@ -25,15 +26,15 @@ class QuizController extends Controller
 		return QuizIndexResource::collection(
 			Quiz::similarQuizzes($request->categoryIds, $request->excludeId, auth()->id())
 				->with('categories', 'difficultyLevel', 'questions')
-				->take(3)
+				->orderBy('id', 'desc')->take(3)
 				->get()
 		);
 	}
 
-	public function store(Request $request)
+	public function store(Request $request, CompleteQuizAction $completeQuizAction)
 	{
 		$quiz = Quiz::findOrFail($request->quizId);
-		$response = $quiz->completeQuiz($request->values, $request->totalTime, auth()->id());
+		$response = $completeQuizAction->execute($quiz, $request->values, $request->totalTime, auth()->id());
 
 		if (isset($response['error'])) {
 			return response()->json($response, 400);

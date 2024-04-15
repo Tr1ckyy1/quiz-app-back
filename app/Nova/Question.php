@@ -2,7 +2,6 @@
 
 namespace App\Nova;
 
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
@@ -48,55 +47,7 @@ class Question extends Resource
 
 			Text::make('Name'),
 			BelongsTo::make('Quiz'),
-			Number::make('Points'), 
+			Number::make('Points'),
 		];
-	}
-
-	/**
-	 * Get the cards available for the request.
-	 *
-	 * @param \Laravel\Nova\Http\Requests\NovaRequest $request
-	 *
-	 * @return array
-	 */
-	public function cards(NovaRequest $request)
-	{
-		return [];
-	}
-
-	/**
-	 * Get the filters available for the resource.
-	 *
-	 * @param \Laravel\Nova\Http\Requests\NovaRequest $request
-	 *
-	 * @return array
-	 */
-	public function filters(NovaRequest $request)
-	{
-		return [];
-	}
-
-	/**
-	 * Get the lenses available for the resource.
-	 *
-	 * @param \Laravel\Nova\Http\Requests\NovaRequest $request
-	 *
-	 * @return array
-	 */
-	public function lenses(NovaRequest $request)
-	{
-		return [];
-	}
-
-	/**
-	 * Get the actions available for the resource.
-	 *
-	 * @param \Laravel\Nova\Http\Requests\NovaRequest $request
-	 *
-	 * @return array
-	 */
-	public function actions(NovaRequest $request)
-	{
-		return [];
 	}
 }
