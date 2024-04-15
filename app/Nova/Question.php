@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
@@ -45,9 +46,10 @@ class Question extends Resource
 		return [
 			ID::make()->sortable(),
 
-			Text::make('Name'),
-			BelongsTo::make('Quiz'),
-			Number::make('Points'),
+			Text::make('Name')->required(),
+			HasMany::make('Answers')->required(),
+			Number::make('Points')->required(),
+			BelongsTo::make('Quiz')->required(),
 		];
 	}
 }

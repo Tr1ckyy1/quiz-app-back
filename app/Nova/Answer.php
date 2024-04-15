@@ -45,9 +45,9 @@ class Answer extends Resource
 		return [
 			ID::make()->sortable(),
 
-			Text::make('Name'),
-			BelongsTo::make('Question'),
-			Boolean::make('Correct'),
+			Text::make('Name')->required(),
+			Boolean::make('Correct')->required(),
+			BelongsTo::make('Question')->required(),
 		];
 	}
 }
