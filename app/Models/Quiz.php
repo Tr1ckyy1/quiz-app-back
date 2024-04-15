@@ -118,7 +118,7 @@ class Quiz extends Model
 		$timeTakenMinutesDatabase = $userId ? $timeTakenMinutesDatabase : null;
 		$totalPoints = $userId ? $totalPoints : null;
 
-		$this->users()->attach([$userId], ['total_time' => $timeTakenMinutesDatabase, 'total_points' => $totalPoints, 'created_at' => date('Y-m-d')]);
+		$this->users()->attach([$userId], ['total_time' => $timeTakenMinutesDatabase, 'total_points' => $totalPoints, 'created_at' => now()]);
 
 		return [
 			'quiz_name'           => $this->title,
