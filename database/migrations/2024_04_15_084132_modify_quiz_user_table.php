@@ -24,5 +24,11 @@ class ModifyQuizUserTable extends Migration
 	 */
 	public function down(): void
 	{
+		Schema::table('quiz_user', function (Blueprint $table) {
+			$table->integer('duration')->nullable();
+			$table->integer('points')->nullable();
+			$table->dropColumn('total_time');
+			$table->dropColumn('total_points');
+		});
 	}
 }
