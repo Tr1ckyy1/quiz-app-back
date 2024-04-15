@@ -12,7 +12,7 @@ class QuizController extends Controller
 	public function index()
 	{
 		$quizzes = Quiz::with('categories', 'difficultyLevel', 'users', 'questions');
-		return QuizIndexResource::collection($quizzes->filter(request(['categories', 'levels', 'sort', 'search', 'my_quizzes', 'not_completed']))->paginate(2));
+		return QuizIndexResource::collection($quizzes->filter(request(['categories', 'levels', 'sort', 'search', 'my_quizzes', 'not_completed']))->paginate(9));
 	}
 
 	public function show(Quiz $quiz)
