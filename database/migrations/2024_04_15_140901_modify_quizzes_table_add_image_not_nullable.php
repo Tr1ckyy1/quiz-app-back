@@ -20,5 +20,8 @@ return new class extends Migration {
 	 */
 	public function down(): void
 	{
+		Schema::table('quizzes', function (Blueprint $table) {
+			$table->string('image')->nullable()->change();
+		});
 	}
 };
