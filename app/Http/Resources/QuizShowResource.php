@@ -14,15 +14,25 @@ class QuizShowResource extends JsonResource
 	 */
 	public function toArray(Request $request): array
 	{
-		return [
-			'id'                           => $this->id,
-			'title'                        => $this->title,
-			'image'                        => $this->image,
-			'instructions'                 => $this->instructions,
-			'intro_question'               => $this->intro_question,
-			'duration'                     => $this->duration,
-			'categories'                   => CategoryResource::collection($this->categories),
-			'questions'                    => $this->questions,
+		$data = [
+			'id'                                             => $this->id,
+			'title'                                          => $this->title,
+			'duration'                                       => $this->duration,
+			'categories'                                     => CategoryResource::collection($this->categories),
+			'total_questions'                                => $this->questions->pluck('points')->count(),
+			'total_points'                                   => $this->questions->sum('points'),
+			'total_users'                                    => $this->totalUsers(),
+			'user_completed'                                 => $this->when(auth()->check(), $this->hasCompletedQuiz()),
 		];
+
+		if (!$request->testPage) {
+			$data['image'] = $this->image;
+			$data['instructions'] = $this->instructions;
+			$data['intro_questions'] = $this->intro_questions;
+		} else {
+			$data['questions'] = QuestionResource::collection($this->questions);
+		}
+
+		return $data;
 	}
 }

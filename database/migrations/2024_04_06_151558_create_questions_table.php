@@ -14,8 +14,9 @@ return new class extends Migration {
 			$table->id();
 			$table->string('name');
 			$table->foreignId('quiz_id')->constrained()->cascadeOnDelete();
+			$table->unsignedTinyInteger('points');
 			$table->unique(['quiz_id', 'name']);
-            $table->timestamps();
+			$table->timestamps();
 		});
 	}
 
