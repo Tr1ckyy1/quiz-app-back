@@ -4,13 +4,17 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DifficultyLevelController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\QuizwizInfoController;
 use App\Http\Controllers\VerificationController;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/user', function (Request $request) {
-	return $request->user();
+	return new UserResource($request->user());
 })->middleware('auth:sanctum');
+
+Route::get('/quizwiz-info', [QuizwizInfoController::class, 'show'])->name('quizwiz_info');
 
 Route::controller(QuizController::class)->group(function () {
 	Route::get('/quizzes', 'index')->name('quizzes');

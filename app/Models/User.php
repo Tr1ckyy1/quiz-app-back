@@ -53,4 +53,9 @@ class User extends Authenticatable implements MustVerifyEmail
 	{
 		return $this->belongsToMany(Quiz::class);
 	}
+
+	public function getProfileImageUrl()
+	{
+		return $this->profile_image ? asset('storage/' . $this->profile_image) : null;
+	}
 }

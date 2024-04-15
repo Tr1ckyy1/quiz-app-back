@@ -17,7 +17,7 @@ class QuizIndexResource extends JsonResource
 		$data = [
 			'id'                                                          => $this->id,
 			'title'                                                       => $this->title,
-			'image'                                                       => $this->image,
+			'image'                                                       => $this->getQuizImageUrl(),
 			'categories'                                                  => CategoryResource::collection($this->categories),
 			'difficulty_level'                                            => $this->difficultyLevel,
 			'total_users'                                                 => $this->totalUsers(),

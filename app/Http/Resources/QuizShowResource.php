@@ -26,7 +26,7 @@ class QuizShowResource extends JsonResource
 		];
 
 		if (!$request->testPage) {
-			$data['image'] = $this->image;
+			$data['image'] = $this->getQuizImageUrl();
 			$data['instructions'] = $this->instructions;
 			$data['intro_questions'] = $this->intro_questions;
 		} else {

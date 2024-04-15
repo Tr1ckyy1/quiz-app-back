@@ -37,6 +37,11 @@ class Quiz extends Model
 		->count();
 	}
 
+	public function getQuizImageUrl()
+	{
+		return asset('storage/' . $this->image);
+	}
+
 	public function hasCompletedQuiz()
 	{
 		return $this->users()->where('user_id', auth()->id())->exists();
