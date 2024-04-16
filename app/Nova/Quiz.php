@@ -25,7 +25,7 @@ class Quiz extends Resource
 	 *
 	 * @var string
 	 */
-	public static $title = 'id';
+	public static $title = 'name';
 
 	/**
 	 * The columns that should be searched.
@@ -33,7 +33,7 @@ class Quiz extends Resource
 	 * @var array
 	 */
 	public static $search = [
-		'id',
+		'id', 'name',
 	];
 
 	/**
@@ -52,7 +52,7 @@ class Quiz extends Resource
 			Text::make('Intro Question')->required(),
 			Text::make('Instructions')->required(),
 			Number::make('Duration')->required(),
-			Image::make('Image')->path('images')->disableDownload()->required(),
+			Image::make('Image')->disableDownload()->required(),
 			BelongsTo::make('Difficulty Level')->required(),
 			BelongsToMany::make('Categories'),
 			HasMany::make('Questions'),
