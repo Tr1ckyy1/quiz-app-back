@@ -25,7 +25,7 @@ class User extends Resource
 	 *
 	 * @var string
 	 */
-	public static $title = 'name';
+	public static $title = 'username';
 
 	/**
 	 * The columns that should be searched.
@@ -65,7 +65,7 @@ class User extends Resource
 				->creationRules('required', Rules\Password::defaults())
 				->updateRules('nullable', Rules\Password::defaults())->required(),
 
-			Image::make('Profile image')->path('images')->disableDownload(),
+			Image::make('Profile image')->disableDownload(),
 
 			BelongsToMany::make('Quizzes'),
 		];
