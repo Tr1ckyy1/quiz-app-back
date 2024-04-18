@@ -9,6 +9,8 @@ class DifficultyLevel extends Model
 {
 	use HasFactory;
 
+	protected $guarded = ['id'];
+
 	public function quizzes()
 	{
 		return $this->hasMany(Quiz::class);

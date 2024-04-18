@@ -1,67 +1,257 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<h1>Quizwiz Application</h1>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+---
 
-## About Laravel
+Welcome to the Quiz App API! This API serves as the backend for providing quiz functionalities to users. It handles user authentication, quiz filtering, submission of quiz attempts, and various other features to enhance the user experience.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Overview
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<p>
+The backend of the Quiz App serves as the central logic handler, facilitating communication between the frontend and the database. It manages user interactions, quiz functionalities, and data retrieval to ensure a smooth and efficient experience for users. Built using Laravel and MySQL, it effectively handles user authorizations, quiz data management, submission of quiz attempts, and filtering of data based on user queries.</p>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Technologies Used
 
-## Learning Laravel
+-Laravel: PHP framework for web and API development, providing tools for routing, authentication, database management, and more.
+-MySQL: Relational database management system used for storing and managing data in Laravel applications.
+-Laravel Sanctum: SPA-based authentication package for securing API endpoints and authenticating users in Laravel applications.
+-Laravel Nova: Administration panel for managing application resources, creating custom dashboards, and simplifying administrative tasks in Laravel applications.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Prerequisites
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   PHP version 8.0 or higher.
+-   MySQL version 8.0 or higher.
+-   Composer for managing PHP dependencies.
+-   Laravel 11.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Getting started
 
-## Laravel Sponsors
+1\. Clone the Quizwiz api repository from GitHub.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```sh
+git clone https://github.com/RedberryInternship/api-quizwiz-omar-jangavadze
+```
 
-### Premium Partners
+2\. Next step requires you to run _composer install_ in order to install all the dependencies.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```sh
+composer install
+```
 
-## Contributing
+3\. Now we need to set our env file. Go to the root of your project and execute this command.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```sh
+cp .env.example .env
+```
 
-## Code of Conduct
+And now you should provide **.env** file all the necessary environment variables:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#
 
-## Security Vulnerabilities
+**MYSQL:**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+> DB_CONNECTION=mysql
 
-## License
+> DB_HOST=127.0.0.1
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# api-quizwiz-omar-jangavadze
+> DB_PORT=3306
+
+> DB_DATABASE=**\***
+
+> DB_USERNAME=**\***
+
+> DB_PASSWORD=**\***
+
+```sh
+php artisan config:cache
+```
+
+in order to cache environment variables.
+
+#
+
+## Migration
+
+if you've completed getting started section, then migrating database if fairly simple process, just execute:
+
+```sh
+php artisan migrate
+```
+
+#
+
+### Development
+
+You can run Laravel's built-in development server by executing:
+
+```sh
+  php artisan serve
+```
+
+#
+
+### API endpoints
+
+1. **Retrieve User Information**
+
+    - **GET** `/user`
+    - Description: Retrieves information about the authenticated user.
+    - Middleware: `auth:sanctum`
+
+2. **Retrieve Quizwiz Information**
+
+    - **GET** `/quizwiz-info`
+    - Controller: `QuizwizInfoController@show`
+    - Description: Retrieves information related to Quizwiz.
+
+3. **Quiz Endpoints**
+
+    - **GET** `/quizzes`
+
+        - Controller: `QuizController@index`
+        - Description: Retrieves a list of quizzes.
+        - Parameters: None
+
+    - **GET** `/quizzes/{quiz}`
+
+        - Controller: `QuizController@show`
+        - Description: Retrieves details of a specific quiz.
+        - Parameters: `{quiz}` (quiz ID)
+
+    - **GET** `/similar-quizzes`
+
+        - Controller: `QuizController@similarQuizzes`
+        - Description: Retrieves a list of quizzes similar to the current quiz.
+        - Parameters: None
+
+    - **POST** `/submit-quiz`
+        - Controller: `QuizController@store`
+        - Description: Submits a quiz attempt.
+        - Parameters: Quiz data in the request body
+
+4. **Category Endpoints**
+
+    - **GET** `/categories`
+        - Controller: `CategoryController@index`
+        - Description: Retrieves a list of quiz categories.
+        - Parameters: None
+
+5. **Difficulty Level Endpoints**
+
+    - **GET** `/difficulty-levels`
+        - Controller: `DifficultyLevelController@index`
+        - Description: Retrieves a list of difficulty levels for quizzes.
+        - Parameters: None
+
+6. **Authentication Endpoints**
+
+    - **POST** `/signup`
+
+        - Controller: `AuthController@signup`
+        - Description: Registers a new user.
+        - Middleware: `guest`
+
+    - **POST** `/login`
+
+        - Controller: `AuthController@login`
+        - Description: Logs in a user.
+        - Middleware: `guest`
+
+    - **POST** `/logout`
+
+        - Controller: `AuthController@logout`
+        - Description: Logs out the authenticated user.
+        - Middleware: `auth:sanctum`
+
+    - **POST** `/forgot-password`
+
+        - Controller: `AuthController@forgotPassword`
+        - Description: Initiates the password reset process.
+        - Middleware: `guest`
+
+    - **POST** `/reset-password`
+        - Controller: `AuthController@resetPassword`
+        - Description: Resets the user's password.
+        - Middleware: `guest`
+
+7. **Email Verification Endpoints**
+
+    - **GET** `/email/verify/{id}/{hash}`
+
+        - Controller: `VerificationController@verify`
+        - Description: Verifies the user's email address.
+        - Middleware: `signed`
+
+    - **POST** `/email/verification-notification`
+        - Controller: `VerificationController@resend`
+        - Description: Resends the email verification notification.
+        - Middleware: `throttle:6,1`
+
+#
+
+### Project Structure
+
+```bash
+├─── app/
+├── Actions
+│   ├── CompleteQuizAction
+# ├── ├── ├── CreateUser
+├── Http
+│   ├── Controllers
+├── ├── ├── AuthController
+├── ├── ├── CategoryController
+├── ├── ├── DifficultyLevelController
+├── ├── ├── QuizController
+├── ├── ├── QuizwizInfoController
+├── ├── ├── VerificationController
+│   └── Middleware
+├── ├── ├── AuthenticateSanctumRequest
+├── ├── ├── RestrictAuthorizedUsers
+│   └── Requests
+├── ├── ├── StoreLoginRequest
+├── ├── ├── StoreResetPasswordRequest
+├── ├── ├── StoreSignupRequest
+│   └── Requests
+├── ├── ├── AnswerResource
+├── ├── ├── CategoryResource
+├── ├── ├── QuestionResource
+├── ├── ├── QuizIndexResource
+├── ├── ├── QuizShowResource
+├── ├── ├── UserResource
+├── Models
+│   ├── Answer
+│   ├── Auth
+│   ├── Category
+│   ├── DifficultyLevel
+│   ├── Question
+│   ├── Quiz
+│   ├── QuizwizInfo
+│   ├── User
+├── Nova
+│   ├── Answer
+│   ├── Category
+│   ├── DifficultyLevel
+│   ├── Question
+│   ├── Quiz
+│   ├── QuizwizInfo
+│   ├── Resource
+│   ├── User
+├── Providers
+bootstrap/
+config/
+database/
+lang/
+public/
+resources/
+routes/
+storage/
+tests/
+vendor/
+.env
+artisan
+composer.json
+vite.config.js
+```
+
+### Interaction
+
+<img src="public/drawsql.png" alt="drawing"  class="mr-5 w-full object-cover" />
