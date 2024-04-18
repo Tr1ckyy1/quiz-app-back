@@ -11,10 +11,10 @@ The backend of the Quiz App serves as the central logic handler, facilitating co
 
 ### Technologies Used
 
--Laravel: PHP framework for web and API development, providing tools for routing, authentication, database management, and more.
--MySQL: Relational database management system used for storing and managing data in Laravel applications.
--Laravel Sanctum: SPA-based authentication package for securing API endpoints and authenticating users in Laravel applications.
--Laravel Nova: Administration panel for managing application resources, creating custom dashboards, and simplifying administrative tasks in Laravel applications.
+-   Laravel: PHP framework for web and API development, providing tools for routing, authentication, database management, and more.
+-   MySQL: Relational database management system used for storing and managing data in Laravel applications.
+-   Laravel Sanctum: SPA-based authentication package for securing API endpoints and authenticating users in Laravel applications.
+-   Laravel Nova: Administration panel for managing application resources, creating custom dashboards, and simplifying administrative tasks in Laravel applications.
 
 ### Prerequisites
 
