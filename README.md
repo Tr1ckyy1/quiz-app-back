@@ -25,7 +25,7 @@ The backend of the Quiz App serves as the central logic handler, facilitating co
 
 ### Getting started
 
-1\. Clone the Quizwiz api repository from GitHub.
+1\. Clone the Quizwiz API repository from GitHub.
 
 ```sh
 git clone https://github.com/RedberryInternship/api-quizwiz-omar-jangavadze
@@ -71,7 +71,7 @@ in order to cache environment variables.
 
 ## Migration
 
-if you've completed getting started section, then migrating database if fairly simple process, just execute:
+if you've completed getting started section, then migrating database is fairly simple process, just execute:
 
 ```sh
 php artisan migrate
