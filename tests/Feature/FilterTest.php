@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Category;
 use App\Models\DifficultyLevel;
 use App\Models\Quiz;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
@@ -183,5 +184,110 @@ class FilterTest extends TestCase
 		$firstQuizPopularity = $response->json('data.0.users_count');
 		$secondQuizPopularity = $response->json('data.1.users_count');
 		$this->assertTrue($firstQuizPopularity >= $secondQuizPopularity);
+	}
+
+	public function test_authorized_user_can_filter_by_completed_quizzes()
+	{
+		$user = User::factory()->create();
+
+		$category = Category::factory()->create();
+
+		$quizzes = Quiz::factory(5)->create(['difficulty_level_id' => 1]);
+
+		foreach ($quizzes as $quiz) {
+			$quiz->categories()->sync($category);
+		}
+
+		$completedQuizzes = $quizzes->random(3);
+		foreach ($completedQuizzes as $completedQuiz) {
+			$completedQuiz->users()->attach($user, ['total_time' => 4, 'total_points' => 22, 'created_at' => now()]);
+		}
+
+		$response = $this->actingAs($user)->getJson(route('quizzes.index', ['my_quizzes' => 'true']));
+
+		$response->assertStatus(200);
+		$response->assertJsonCount(3, 'data');
+	}
+
+	public function test_authorized_user_can_filter_by_not_completed_quizzes()
+	{
+		$user = User::factory()->create();
+
+		$category = Category::factory()->create();
+
+		$quizzes = Quiz::factory(5)->create(['difficulty_level_id' => 1]);
+
+		foreach ($quizzes as $quiz) {
+			$quiz->categories()->sync($category);
+		}
+
+		$completedQuizzes = $quizzes->random(3);
+		foreach ($completedQuizzes as $completedQuiz) {
+			$completedQuiz->users()->attach($user, ['total_time' => 4, 'total_points' => 22, 'created_at' => now()]);
+		}
+
+		$response = $this->actingAs($user)->getJson(route('quizzes.index', ['not_completed' => 'true']));
+
+		$response->assertStatus(200);
+		$response->assertJsonCount(2, 'data');
+	}
+
+	public function test_authorized_user_can_filter_all_quizzes_if_completed_and_not_completed_both_are_selected()
+	{
+		$user = User::factory()->create();
+
+		$category = Category::factory()->create();
+
+		$quizzes = Quiz::factory(5)->create(['difficulty_level_id' => 1]);
+
+		foreach ($quizzes as $quiz) {
+			$quiz->categories()->sync($category);
+		}
+
+		$completedQuizzes = $quizzes->random(3);
+		foreach ($completedQuizzes as $completedQuiz) {
+			$completedQuiz->users()->attach($user, ['total_time' => 4, 'total_points' => 22, 'created_at' => now()]);
+		}
+
+		$response = $this->actingAs($user)->getJson(route('quizzes.index', ['my_quizzes' => 'true', 'not_completed' => 'true']));
+
+		$response->assertStatus(200);
+		$response->assertJsonCount(5, 'data');
+	}
+
+	public function test_unauthorized_user_tries_to_filter_by_my_quizzes_it_gets_ignored_and_user_fetches_every_data()
+	{
+		{
+			$category = Category::factory()->create();
+
+			$quizzes = Quiz::factory(5)->create(['difficulty_level_id' => 1]);
+
+			foreach ($quizzes as $quiz) {
+				$quiz->categories()->sync($category);
+			}
+
+			$response = $this->getJson(route('quizzes.index', ['my_quizzes' => 'true']));
+
+			$response->assertStatus(200);
+			$response->assertJsonCount(5, 'data');
+		}
+	}
+
+	public function test_unauthorized_user_tries_to_filter_by_not_completed_it_gets_ignored_and_user_fetches_every_data()
+	{
+		{
+			$category = Category::factory()->create();
+
+			$quizzes = Quiz::factory(5)->create(['difficulty_level_id' => 1]);
+
+			foreach ($quizzes as $quiz) {
+				$quiz->categories()->sync($category);
+			}
+
+			$response = $this->getJson(route('quizzes.index', ['not_completed' => 'true']));
+
+			$response->assertStatus(200);
+			$response->assertJsonCount(5, 'data');
+		}
 	}
 }

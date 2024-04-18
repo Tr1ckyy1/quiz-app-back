@@ -19,12 +19,12 @@ class SimilarQuizzesTest extends TestCase
 			['name' => 'Starter', 'bg_color_normal' => '#F0F9FF', 'color' => '#026AA2']
 		);
 
-		$categories = Category::factory()->create();
+		$category = Category::factory()->create();
 
 		$quizzes = Quiz::factory(5)->create(['difficulty_level_id' => 1]);
 
 		foreach ($quizzes as $quiz) {
-			$quiz->categories()->sync($categories);
+			$quiz->categories()->sync($category);
 		}
 
 		$quizId = $quizzes->first()->id;
@@ -49,12 +49,12 @@ class SimilarQuizzesTest extends TestCase
 		);
 		$user = User::factory()->create();
 
-		$categories = Category::factory()->create();
+		$category = Category::factory()->create();
 
 		$quizzes = Quiz::factory(5)->create(['difficulty_level_id' => 1]);
 
 		foreach ($quizzes as $quiz) {
-			$quiz->categories()->sync($categories);
+			$quiz->categories()->sync($category);
 		}
 
 		$completedQuizzes = $quizzes->random(3);

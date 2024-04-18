@@ -252,6 +252,10 @@ composer.json
 vite.config.js
 ```
 
+### FRONTEND
+
+<a href="https://github.com/RedberryInternship/task-manager-omar-jangavadze">Quizwiz Frontend</a>
+
 ### Interaction
 
 <img src="public/drawsql.png" alt="drawing"  class="mr-5 w-full object-cover" />
