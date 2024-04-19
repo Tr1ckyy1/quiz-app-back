@@ -17,8 +17,8 @@ Route::get('/user', function (Request $request) {
 Route::get('/quizwiz-info', [QuizwizInfoController::class, 'show'])->name('quizwiz_info');
 
 Route::controller(QuizController::class)->group(function () {
-	Route::get('/quizzes', 'index')->name('quizzes');
-	Route::get('/quizzes/{quiz}', 'show')->name('quizzes');
+	Route::get('/quizzes', 'index')->name('quizzes.index');
+	Route::get('/quizzes/{quiz}', 'show')->name('quizzes.show');
 	Route::get('/similar-quizzes', 'similarQuizzes')->name('similar_quizzes');
 	Route::post('/submit-quiz', 'store')->name('complete_quiz');
 });

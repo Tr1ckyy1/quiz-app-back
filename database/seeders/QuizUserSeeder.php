@@ -10,7 +10,7 @@ class QuizUserSeeder extends Seeder
 {
 	public function run(): void
 	{
-		$quizzes = Quiz::factory(20)->withQuestionsAndAnswers()->create();
+		$quizzes = Quiz::factory(10)->withQuestionsAndAnswers()->create();
 
 		$quizUserRecords = [];
 

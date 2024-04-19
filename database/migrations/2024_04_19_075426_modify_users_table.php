@@ -12,7 +12,7 @@ return new class extends Migration {
 	{
 		Schema::table('users', function (Blueprint $table) {
 			$table->dropColumn('name');
-			$table->string('username')->unique();
+			$table->string('username')->unique()->nullabe();
 			$table->string('profile_image')->nullable();
 			$table->string('accept_terms')->default(false);
 		});
@@ -23,5 +23,10 @@ return new class extends Migration {
 	 */
 	public function down(): void
 	{
+		Schema::table('users', function (Blueprint $table) {
+			$table->dropColumn('username');
+			$table->dropColumn('profile_image');
+			$table->dropColumn('accept_terms');
+		});
 	}
 };
