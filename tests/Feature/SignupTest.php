@@ -64,6 +64,7 @@ class SignupTest extends TestCase
 		);
 
 		$response = $this->getJson($signedUrl);
+		$response->assertJson(['message' => 'Your account has been verified successfully!']);
 		$response->assertStatus(200);
 	}
 

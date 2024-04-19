@@ -47,6 +47,28 @@ And now you should provide **.env** file all the necessary environment variables
 
 #
 
+# Laravel Nova
+
+Laravel Nova is an administration panel for managing application resources, creating custom dashboards, and simplifying administrative tasks in Laravel applications.
+
+## Installation
+
+To install Laravel Nova, follow the official documentation [here](https://nova.laravel.com/docs/4.0/installation.html).
+
+## Configuration
+
+Once installed, Laravel Nova can be accessed at `/nova` route of the application.
+
+## Creating Resources
+
+To create custom resources, use Nova's resource classes. Refer to the Nova documentation for more information on creating and customizing resources.
+
+## Further information
+
+For detailed instructions on using Laravel Nova, please refer to the official documentation.
+
+#
+
 **MYSQL:**
 
 > DB_CONNECTION=mysql
