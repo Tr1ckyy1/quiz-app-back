@@ -50,7 +50,7 @@ class SignupTest extends TestCase
 		Notification::assertSentTo($user, VerifyEmail::class);
 	}
 
-	public function test_email_verification_redirects_to_frontend_and_confirms_user()
+	public function test_email_verification_verifies_user_with_url()
 	{
 		Notification::fake();
 
@@ -64,8 +64,8 @@ class SignupTest extends TestCase
 		);
 
 		$response = $this->getJson($signedUrl);
-		$response->assertJson(['message' => 'Your account has been verified successfully!']);
 		$response->assertStatus(200);
+		$this->assertTrue($user->fresh()->hasVerifiedEmail());
 	}
 
 	public function test_signup_should_return_error_if_authorized_user_is_trying_to_sign_up()
