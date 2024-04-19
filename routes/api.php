@@ -24,7 +24,7 @@ Route::controller(QuizController::class)->group(function () {
 });
 
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
-Route::get('/difficulty-levels', [DifficultyLevelController::class, 'index'])->name('categories');
+Route::get('/difficulty-levels', [DifficultyLevelController::class, 'index'])->name('diffulty_levels');
 
 Route::controller(AuthController::class)->group(function () {
 	Route::post('/signup', 'signup')->middleware('guest')->name('signup');
