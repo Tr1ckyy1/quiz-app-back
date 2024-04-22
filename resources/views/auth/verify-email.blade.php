@@ -12,7 +12,7 @@
         <div class="content">
 
             <div class='img-container'>
-                <img src="{{asset('storage/images/quizwiz-email-logo.png')}}"/>
+                <img src="{{asset('quizwiz-email-logo.png')}}"/>
             </div>
             <h1>{{$headerText}}</h1>
         </div>
