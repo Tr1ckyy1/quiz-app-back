@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
 				'signature' => $signature,
 			]);
 
-			return (new MailMessage)->view('auth.verify-email', ['url' => $frontendUrl, 'user' => $notifiable->username, 'headerText' => 'Verify your email address to get started', 'text' => "You're almost there! To complete your sign up, please verify your email address.", 'buttonText' => 'Verify now'])->subject('Please verify your email')->from('no-reply@quizwiz.com');
+			return (new MailMessage)->view('auth.verify-email', ['url' => $frontendUrl, 'user' => $notifiable->username, 'headerText' => 'Verify your email address to get started', 'text' => "You're almost there! To complete your sign up, please verify your email address.", 'buttonText' => 'Verify now'])->subject('Please verify your email')->from(env('MAIL_FROM_ADDRESS'), 'no-reply@quizwiz.com');
 		});
 
 		Model::preventLazyLoading();
