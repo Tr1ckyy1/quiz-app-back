@@ -35,7 +35,7 @@ class ResetPasswordNotification extends Notification
 	 */
 	public function toMail(object $notifiable): MailMessage
 	{
-		return (new MailMessage)->view('auth.verify-email', ['url' => $this->url, 'user' => $notifiable->username, 'headerText' => 'Reset your password to proceed', 'text' => 'You are receiving this email because we received a request to reset the password for your account. If you did not request this change, you can safely ignore this email.', 'buttonText' => 'Reset password'])->subject('Reset your password')->from('no-reply@quizwiz.com');
+		return (new MailMessage)->view('auth.verify-email', ['url' => $this->url, 'user' => $notifiable->username, 'headerText' => 'Reset your password to proceed', 'text' => 'You are receiving this email because we received a request to reset the password for your account. If you did not request this change, you can safely ignore this email.', 'buttonText' => 'Reset password'])->subject('Reset your password')->from(env('MAIL_FROM_ADDRESS'), 'no-reply@quizwiz.com');
 	}
 
 	/**
