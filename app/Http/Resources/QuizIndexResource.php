@@ -19,7 +19,7 @@ class QuizIndexResource extends JsonResource
 			'title'                                                       => $this->title,
 			'image'                                                       => $this->getQuizImageUrl(),
 			'categories'                                                  => CategoryResource::collection($this->categories),
-			'difficulty_level'                                            => $this->difficultyLevel,
+			'difficulty_level'                                            => DifficultyLevelResource::collection($this->difficultyLevel),
 			'total_users'                                                 => $this->totalUsers(),
 		];
 		if (auth()->check()) {
