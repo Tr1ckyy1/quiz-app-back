@@ -4,12 +4,13 @@
     box-sizing: border-box;
 }
 
-body {
+.main-container {
     background-color: #f6f6f6;
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top: 2rem;
+    height: 100dvh;
 }
 
 .container {
@@ -33,7 +34,7 @@ body {
     margin-block: 1rem;
 }
 
-a {
+.link {
     margin-top: 1rem;
     display: inline-block;
     width: fit-content;
@@ -46,12 +47,13 @@ a {
     text-decoration: none;
     font-weight: bold;
     align-self: center;
+    cursor: pointer;
 }
-a:hover {
+.link:hover {
     background: rgba(75, 105, 253, 0.9);
 }
-a:visited,
-a:active {
+.link:visited,
+.link:active {
     color: white;
     outline: none;
 }
