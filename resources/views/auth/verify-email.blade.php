@@ -8,17 +8,19 @@
     <title>Document</title>
 </head>
 <body>
-    <div class='container'>
-        <div class="content">
-
-            <div class='img-container'>
-                <img src="{{asset('quizwiz-email-logo.png')}}"/>
+    <div class="main-container">
+        <div class='container'>
+            <div class="content">
+                <div class='img-container'>
+                    <img src="{{asset('quizwiz-email-logo.png')}}"/>
+                </div>
+                <h1>{{$headerText}}</h1>
             </div>
-            <h1>{{$headerText}}</h1>
+            <p>Hi {{$user}},</p>
+            <p>{{$text}}</p>
+            <a class="link" href="{{$url}}">{{$buttonText}}</a>
         </div>
-        <p>Hi {{$user}},</p>
-        <p>{{$text}}</p>
-        <a href="{{$url}}">{{$buttonText}}</a>
     </div>
+    </html>
 </body>
 </html>
