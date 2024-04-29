@@ -69,6 +69,5 @@
             <a style="color:white" href="{{$url}}">{{$buttonText}}</a>
         </div>
     </div>
-    </html>
 </body>
 </html>
