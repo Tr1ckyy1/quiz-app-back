@@ -20,6 +20,6 @@ return Application::configure(basePath: dirname(__DIR__))
 	})
 	->withExceptions(function (Exceptions $exceptions) {
 		$exceptions->render(function (InvalidSignatureException $e) {
-			return response()->json(['message' => 'Email verification token expired or invalid verification link.'], 404);
+			return response()->json(['message' => 'Email verification token expired or invalid verification link.'], 403);
 		});
 	})->create();
