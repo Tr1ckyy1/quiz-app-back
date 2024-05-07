@@ -23,12 +23,15 @@ class QuizController extends Controller
 
 	public function similarQuizzes(Request $request)
 	{
-		return QuizIndexResource::collection(
-			Quiz::similarQuizzes($request->categoryIds, $request->excludeId, auth()->id())
-				->with('categories', 'difficultyLevel', 'questions')
-				->orderBy('id', 'desc')->take(3)
-				->get()
-		);
+		$quizHasCategories = Quiz::findOrFail($request->excludeId)->load('categories')->categories->count();
+		if ($quizHasCategories) {
+			return QuizIndexResource::collection(
+				Quiz::similarQuizzes($request->categoryIds, $request->excludeId, auth()->id())
+					->with('categories', 'difficultyLevel', 'questions')
+					->orderBy('id', 'desc')->take(3)
+					->get()
+			);
+		}
 	}
 
 	public function store(Request $request, CompleteQuizAction $completeQuizAction)
