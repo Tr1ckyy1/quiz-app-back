@@ -2,9 +2,10 @@
 
 namespace App\Nova;
 
+use Laravel\Nova\Fields\Color;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class DifficultyLevel extends Resource
@@ -41,43 +42,11 @@ class DifficultyLevel extends Resource
 	 */
 	public function fields(NovaRequest $request)
 	{
-		$levels = [
-			'Starter'          => 'Starter',
-			'Beginner'         => 'Beginner',
-			'Middle'           => 'Middle',
-			'High'             => 'High',
-			'Very high'        => 'Very High',
-			'Dangerously high' => 'Dangerously High',
-		];
-
-		$colors = [
-			'#026AA2' => 'Starter',
-			'#175CD3' => 'Beginner',
-			'#6941C6' => 'Middle',
-			'#B54708' => 'High',
-			'#C11574' => 'Very High',
-			'#C01048' => 'Dangerously High',
-		];
-
-		$bgColors = [
-			'#F0F9FF' => 'Starter',
-			'#EFF8FF' => 'Beginner',
-			'#F9F5FF' => 'Middle',
-			'#FFFAEB' => 'High',
-			'#FDF2FA' => 'Very High',
-			'#FFF1F3' => 'Dangerously High',
-		];
-
 		return [
 			ID::make()->sortable(),
-			Select::make('Name')
-				->options($levels)
-				->sortable()
-				->rules('required'),
-
-			Select::make('Color')->options($colors)->sortable()->rules('required'),
-
-			Select::make('Bg color normal')->options($bgColors)->sortable()->rules('required'),
+			Text::make('Name')->required(),
+			Color::make('Color')->required(),
+			Color::make('Bg color normal')->required(),
 			HasMany::make('Quizzes'),
 		];
 	}
