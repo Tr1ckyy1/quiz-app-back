@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Laravel\Nova\Fields\Color;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -44,8 +45,8 @@ class DifficultyLevel extends Resource
 		return [
 			ID::make()->sortable(),
 			Text::make('Name')->required(),
-			Text::make('Color')->required(),
-			Text::make('Bg color normal')->required(),
+			Color::make('Color')->required(),
+			Color::make('Bg color normal')->required(),
 			HasMany::make('Quizzes'),
 		];
 	}
