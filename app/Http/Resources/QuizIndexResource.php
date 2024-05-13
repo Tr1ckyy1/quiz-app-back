@@ -21,6 +21,7 @@ class QuizIndexResource extends JsonResource
 			'categories'                                                  => CategoryResource::collection($this->categories),
 			'difficulty_level'                                            => DifficultyLevelResource::make($this->difficultyLevel),
 			'total_users'                                                 => $this->totalUsers(),
+			'total_questions'                                             => $this->questions->pluck('points')->count(),
 		];
 		if (auth()->check()) {
 			$data['total_points'] = $this->questions->sum('points');
