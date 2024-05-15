@@ -23,7 +23,7 @@ class QuizController extends Controller
 
 	public function similarQuizzes(Request $request)
 	{
-		$quizHasCategories = Quiz::findOrFail($request->excludeId)->load('categories')->categories->count()->hasQuestions();
+		$quizHasCategories = Quiz::findOrFail($request->excludeId)->load('categories')->categories->count();
 		if ($quizHasCategories) {
 			return QuizIndexResource::collection(
 				Quiz::similarQuizzes($request->categoryIds, $request->excludeId, auth()->id())
