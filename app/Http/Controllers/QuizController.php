@@ -12,7 +12,7 @@ class QuizController extends Controller
 {
 	public function index()
 	{
-		$quizzes = Quiz::with('categories', 'difficultyLevel', 'users', 'questions');
+		$quizzes = Quiz::with('categories', 'difficultyLevel', 'users', 'questions')->hasQuestions();
 		return QuizIndexResource::collection($quizzes->filter(request(['categories', 'levels', 'sort', 'search', 'my_quizzes', 'not_completed']))->paginate(9));
 	}
 
@@ -23,7 +23,7 @@ class QuizController extends Controller
 
 	public function similarQuizzes(Request $request)
 	{
-		$quizHasCategories = Quiz::findOrFail($request->excludeId)->load('categories')->categories->count();
+		$quizHasCategories = Quiz::findOrFail($request->excludeId)->load('categories')->categories->count()->hasQuestions();
 		if ($quizHasCategories) {
 			return QuizIndexResource::collection(
 				Quiz::similarQuizzes($request->categoryIds, $request->excludeId, auth()->id())

@@ -73,6 +73,13 @@ class Quiz extends Model
 		->first();
 	}
 
+	public function scopeHasQuestions($query)
+	{
+		return $query->whereHas('questions', function ($query) {
+			$query->where('points', '>', 0);
+		});
+	}
+
 	public function scopeSimilarQuizzes($query, $categoryIds, $excludeId, $userId)
 	{
 		return $query->whereNot('id', $excludeId)
