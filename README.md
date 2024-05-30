@@ -232,7 +232,7 @@ You can run Laravel's built-in development server by executing:
 ├── ├── ├── StoreLoginRequest
 ├── ├── ├── StoreResetPasswordRequest
 ├── ├── ├── StoreSignupRequest
-│   └── Requests
+│   └── Resources
 ├── ├── ├── AnswerResource
 ├── ├── ├── CategoryResource
 ├── ├── ├── QuestionResource
