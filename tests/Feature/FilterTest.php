@@ -30,18 +30,18 @@ class FilterTest extends TestCase
 		$category2 = Category::factory()->create(['name' => 'Geography']);
 		$category3 = Category::factory()->create(['name' => 'Math']);
 
-		$quiz1 = Quiz::factory()->create(['difficulty_level_id' => 1]);
+		$quiz1 = Quiz::factory()->withQuestionsAndAnswers()->create(['difficulty_level_id' => 1]);
 		$quiz1->categories()->attach($category1);
 
-		$quiz2 = Quiz::factory()->create(['difficulty_level_id' => 1]);
+		$quiz2 = Quiz::factory()->withQuestionsAndAnswers()->create(['difficulty_level_id' => 1]);
 		$quiz2->categories()->attach($category1);
 
-		$quiz3 = Quiz::factory()->create(['difficulty_level_id' => 1]);
+		$quiz3 = Quiz::factory()->withQuestionsAndAnswers()->create(['difficulty_level_id' => 1]);
 		$quiz3->categories()->attach($category1);
 
-		$quiz4 = Quiz::factory()->create(['difficulty_level_id' => 1]);
+		$quiz4 = Quiz::factory()->withQuestionsAndAnswers()->create(['difficulty_level_id' => 1]);
 		$quiz4->categories()->attach($category2);
-		$quiz5 = Quiz::factory()->create(['difficulty_level_id' => 1]);
+		$quiz5 = Quiz::factory()->withQuestionsAndAnswers()->create(['difficulty_level_id' => 1]);
 		$quiz5->categories()->attach($category3);
 
 		$response = $this->getJson(route('quizzes.index', ['categories' => 'Geography&Music']));
@@ -70,9 +70,9 @@ class FilterTest extends TestCase
 				],
 			]
 		);
-		Quiz::factory()->create(['difficulty_level_id' => 1]);
-		Quiz::factory()->create(['difficulty_level_id' => 2]);
-		Quiz::factory()->create(['difficulty_level_id' => 3]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['difficulty_level_id' => 1]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['difficulty_level_id' => 2]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['difficulty_level_id' => 3]);
 
 		$response = $this->getJson(route('quizzes.index', ['levels' => 'Starter&Beginner']));
 
@@ -84,11 +84,11 @@ class FilterTest extends TestCase
 	{
 		$category = Category::factory()->create();
 
-		$quiz1 = Quiz::factory()->create(['difficulty_level_id' => 1, 'title' => 'Test']);
-		$quiz2 = Quiz::factory()->create(['difficulty_level_id' => 1, 'title' => 'Test2']);
-		$quiz3 = Quiz::factory()->create(['difficulty_level_id' => 1, 'title' => 'Test3']);
-		$quiz4 = Quiz::factory()->create(['difficulty_level_id' => 1]);
-		$quiz5 = Quiz::factory()->create(['difficulty_level_id' => 1]);
+		$quiz1 = Quiz::factory()->withQuestionsAndAnswers()->create(['difficulty_level_id' => 1, 'title' => 'Test']);
+		$quiz2 = Quiz::factory()->withQuestionsAndAnswers()->create(['difficulty_level_id' => 1, 'title' => 'Test2']);
+		$quiz3 = Quiz::factory()->withQuestionsAndAnswers()->create(['difficulty_level_id' => 1, 'title' => 'Test3']);
+		$quiz4 = Quiz::factory()->withQuestionsAndAnswers()->create(['difficulty_level_id' => 1]);
+		$quiz5 = Quiz::factory()->withQuestionsAndAnswers()->create(['difficulty_level_id' => 1]);
 
 		$quiz1->categories()->attach($category);
 		$quiz2->categories()->attach($category);
@@ -104,12 +104,12 @@ class FilterTest extends TestCase
 
 	public function test_can_filter_by_sorting_az()
 	{
-		Quiz::factory()->create(['title' => 'Quiz B', 'difficulty_level_id' => 1]);
-		Quiz::factory()->create(['title' => 'Quiz C', 'difficulty_level_id' => 1]);
-		Quiz::factory()->create(['title' => 'Quiz A', 'difficulty_level_id' => 1]);
-		Quiz::factory()->create(['title' => 'Quiz Aa', 'difficulty_level_id' => 1]);
-		Quiz::factory()->create(['title' => 'Quiz Aab', 'difficulty_level_id' => 1]);
-		Quiz::factory()->create(['title' => 'Quiz Ca', 'difficulty_level_id' => 1]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['title' => 'Quiz B', 'difficulty_level_id' => 1]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['title' => 'Quiz C', 'difficulty_level_id' => 1]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['title' => 'Quiz A', 'difficulty_level_id' => 1]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['title' => 'Quiz Aa', 'difficulty_level_id' => 1]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['title' => 'Quiz Aab', 'difficulty_level_id' => 1]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['title' => 'Quiz Ca', 'difficulty_level_id' => 1]);
 
 		$response = $this->getJson(route('quizzes.index', ['sort' => 'A-Z']));
 
@@ -119,12 +119,12 @@ class FilterTest extends TestCase
 
 	public function test_can_filter_by_sorting_za()
 	{
-		Quiz::factory()->create(['title' => 'Quiz B', 'difficulty_level_id' => 1]);
-		Quiz::factory()->create(['title' => 'Quiz C', 'difficulty_level_id' => 1]);
-		Quiz::factory()->create(['title' => 'Quiz A', 'difficulty_level_id' => 1]);
-		Quiz::factory()->create(['title' => 'Quiz Aa', 'difficulty_level_id' => 1]);
-		Quiz::factory()->create(['title' => 'Quiz Aab', 'difficulty_level_id' => 1]);
-		Quiz::factory()->create(['title' => 'Quiz Ca', 'difficulty_level_id' => 1]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['title' => 'Quiz B', 'difficulty_level_id' => 1]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['title' => 'Quiz C', 'difficulty_level_id' => 1]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['title' => 'Quiz A', 'difficulty_level_id' => 1]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['title' => 'Quiz Aa', 'difficulty_level_id' => 1]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['title' => 'Quiz Aab', 'difficulty_level_id' => 1]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['title' => 'Quiz Ca', 'difficulty_level_id' => 1]);
 
 		$response = $this->getJson(route('quizzes.index', ['sort' => 'Z-A']));
 
@@ -134,9 +134,9 @@ class FilterTest extends TestCase
 
 	public function test_can_filter_by_sorting_oldest()
 	{
-		Quiz::factory()->create(['title' => 'Quiz A',  'difficulty_level_id' => 1, 'created_at' => now()->subDays(3)]);
-		Quiz::factory()->create(['title' => 'Quiz B',  'difficulty_level_id' => 1, 'created_at' => now()->subDays(2)]);
-		Quiz::factory()->create(['title' => 'Quiz C',  'difficulty_level_id' => 1, 'created_at' => now()->subDays(1)]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['title' => 'Quiz A',  'difficulty_level_id' => 1, 'created_at' => now()->subDays(3)]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['title' => 'Quiz B',  'difficulty_level_id' => 1, 'created_at' => now()->subDays(2)]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['title' => 'Quiz C',  'difficulty_level_id' => 1, 'created_at' => now()->subDays(1)]);
 
 		$response = $this->getJson(route('quizzes.index', ['sort' => 'Oldest']));
 
@@ -146,9 +146,9 @@ class FilterTest extends TestCase
 
 	public function test_can_filter_by_sorting_newest()
 	{
-		Quiz::factory()->create(['title' => 'Quiz A',  'difficulty_level_id' => 1, 'created_at' => now()->subDays(3)]);
-		Quiz::factory()->create(['title' => 'Quiz B',  'difficulty_level_id' => 1, 'created_at' => now()->subDays(2)]);
-		Quiz::factory()->create(['title' => 'Quiz C',  'difficulty_level_id' => 1, 'created_at' => now()->subDays(1)]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['title' => 'Quiz A',  'difficulty_level_id' => 1, 'created_at' => now()->subDays(3)]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['title' => 'Quiz B',  'difficulty_level_id' => 1, 'created_at' => now()->subDays(2)]);
+		Quiz::factory()->withQuestionsAndAnswers()->create(['title' => 'Quiz C',  'difficulty_level_id' => 1, 'created_at' => now()->subDays(1)]);
 
 		$response = $this->getJson(route('quizzes.index', ['sort' => 'Newest']));
 
@@ -192,7 +192,7 @@ class FilterTest extends TestCase
 
 		$category = Category::factory()->create();
 
-		$quizzes = Quiz::factory(5)->create(['difficulty_level_id' => 1]);
+		$quizzes = Quiz::factory(5)->withQuestionsAndAnswers()->create(['difficulty_level_id' => 1]);
 
 		foreach ($quizzes as $quiz) {
 			$quiz->categories()->sync($category);
@@ -215,7 +215,7 @@ class FilterTest extends TestCase
 
 		$category = Category::factory()->create();
 
-		$quizzes = Quiz::factory(5)->create(['difficulty_level_id' => 1]);
+		$quizzes = Quiz::factory(5)->withQuestionsAndAnswers()->create(['difficulty_level_id' => 1]);
 
 		foreach ($quizzes as $quiz) {
 			$quiz->categories()->sync($category);
@@ -238,7 +238,7 @@ class FilterTest extends TestCase
 
 		$category = Category::factory()->create();
 
-		$quizzes = Quiz::factory(5)->create(['difficulty_level_id' => 1]);
+		$quizzes = Quiz::factory(5)->withQuestionsAndAnswers()->create(['difficulty_level_id' => 1]);
 
 		foreach ($quizzes as $quiz) {
 			$quiz->categories()->sync($category);
@@ -260,7 +260,7 @@ class FilterTest extends TestCase
 		{
 			$category = Category::factory()->create();
 
-			$quizzes = Quiz::factory(5)->create(['difficulty_level_id' => 1]);
+			$quizzes = Quiz::factory(5)->withQuestionsAndAnswers()->create(['difficulty_level_id' => 1]);
 
 			foreach ($quizzes as $quiz) {
 				$quiz->categories()->sync($category);
@@ -278,7 +278,7 @@ class FilterTest extends TestCase
 		{
 			$category = Category::factory()->create();
 
-			$quizzes = Quiz::factory(5)->create(['difficulty_level_id' => 1]);
+			$quizzes = Quiz::factory(5)->withQuestionsAndAnswers()->create(['difficulty_level_id' => 1]);
 
 			foreach ($quizzes as $quiz) {
 				$quiz->categories()->sync($category);
